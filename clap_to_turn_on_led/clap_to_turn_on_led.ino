@@ -19,27 +19,19 @@ void setup() {
 }
 
 void loop() {
-  soundSensorValue = analogRead(soundSensorPin); // Read the sound sensor value
-  
-  // Check if sound sensor value exceeds threshold
+  soundSensorValue = analogRead(soundSensorPin);
   if (soundSensorValue > threshold) {
-    // Check if it's been long enough since the last clap
-    if (millis() - lastClapTime > 200) { // Adjust this time as needed to avoid false positives
+    if (millis() - lastClapTime > 200) {
       clapCount++;
       lastClapTime = millis();
     }
   }
-  
-  // If one clap is detected, turn the LED on
   if (clapCount == 1) {
     digitalWrite(builtInLEDPin, HIGH);
-  } 
-  // If two claps are detected, turn the LED off
+  }
   else if (clapCount == 2) {
     digitalWrite(builtInLEDPin, LOW);
   }
-  
-  // Reset clap count if more than two claps are detected
   if (clapCount > 2) {
     clapCount = 0;
   }
